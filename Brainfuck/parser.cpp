@@ -27,23 +27,55 @@ void Parser::Load(string code)
 		switch (code[index])
 		{
 			case '>':
-				i.Type = MoveUp;
-				Instructions.push_back(i);
+				if (index > 0 && Instructions.back().Type == MoveUp)
+				{
+					++Instructions.back().Data;
+				}
+				else
+				{
+					i.Type = MoveUp;
+					i.Data = 1;
+					Instructions.push_back(i);
+				}
 				break;
 
 			case '<':
-				i.Type = MoveDown;
-				Instructions.push_back(i);
+				if (index > 0 && Instructions.back().Type == MoveDown)
+				{
+					++Instructions.back().Data;
+				}
+				else
+				{
+					i.Type = MoveDown;
+					i.Data = 1;
+					Instructions.push_back(i);
+				}
 				break;
 
 			case '+':
-				i.Type = Increment;
-				Instructions.push_back(i);
+				if (index > 0 && Instructions.back().Type == Increment)
+				{
+					++Instructions.back().Data;
+				}
+				else
+				{
+					i.Type = Increment;
+					i.Data = 1;
+					Instructions.push_back(i);
+				}
 				break;
 
 			case '-':
-				i.Type = Decrement;
-				Instructions.push_back(i);
+				if (index > 0 && Instructions.back().Type == Decrement)
+				{
+					++Instructions.back().Data;
+				}
+				else
+				{
+					i.Type = Decrement;
+					i.Data = 1;
+					Instructions.push_back(i);
+				}
 				break;
 
 			case '.':
@@ -102,19 +134,19 @@ void Parser::Run(bool inputOnStart)
 		switch (Instructions[index].Type)
 		{
 			case MoveUp:
-				++Pointer;
+				Pointer += Instructions[index].Data;
 				break;
 
 			case MoveDown:
-				--Pointer;
+				Pointer -= Instructions[index].Data;
 				break;
 
 			case Increment:
-				++Cells[Pointer];
+				Cells[Pointer] += Instructions[index].Data;
 				break;
 
 			case Decrement:
-				--Cells[Pointer];
+				Cells[Pointer] -= Instructions[index].Data;
 				break;
 
 			case Show:
