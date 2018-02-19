@@ -90,7 +90,10 @@ void Parser::Run(bool inputOnStart)
 	string input;
 	
 	if (inputOnStart)
+	{
+		cout << "Input: ";
 		cin >> input;
+	}
 
 	int index = 0, inputIndex = 0;
 
