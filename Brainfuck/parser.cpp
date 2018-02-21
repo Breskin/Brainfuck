@@ -112,20 +112,21 @@ void Parser::Load(string code)
 	Instructions.shrink_to_fit();
 }
 
-void Parser::Run(bool inputOnStart)
+void Parser::Run()
+{
+	string input;
+	cout << "Input: ";
+	cin >> input;
+
+	Run(input);
+}
+
+void Parser::Run(string input)
 {
 	Pointer = 0;
 
 	for (int i = 0; i < ARRAY_SIZE; i++)
 		Cells[i] = 0;
-
-	string input;
-	
-	if (inputOnStart)
-	{
-		cout << "Input: ";
-		cin >> input;
-	}
 
 	int index = 0, inputIndex = 0;
 
@@ -154,7 +155,8 @@ void Parser::Run(bool inputOnStart)
 				break;
 
 			case Read:
-				if (inputOnStart) {
+				if (input.length() > 0)
+				{
 					if (inputIndex < input.length())
 					{
 						Cells[Pointer] = input[inputIndex];
@@ -167,7 +169,12 @@ void Parser::Run(bool inputOnStart)
 				}
 				else
 				{
-					Cells[Pointer] = getchar();
+					char get = getchar();
+
+					while (get == 10)
+						get = getchar();
+
+					Cells[Pointer] = get;
 				}
 				break;
 

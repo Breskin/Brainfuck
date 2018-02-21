@@ -22,7 +22,8 @@ class Parser
 		Parser();
 		~Parser();
 		void Load(string);
-		void Run(bool);
+		void Run();
+		void Run(string);
 
 	private:
 		const int ARRAY_SIZE = 30000;
